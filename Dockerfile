@@ -1,9 +1,12 @@
 # استخدام صورة PHP الأساسية مع Apache
 FROM php:8.0-apache
 
-# تثبيت nodejs و npm
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
-    apt-get install -y nodejs
+# تثبيت المتطلبات الأساسية
+RUN apt-get update && apt-get install -y \
+    curl \
+    gnupg \
+    && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
+    && apt-get install -y nodejs
 
 # تثبيت Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
